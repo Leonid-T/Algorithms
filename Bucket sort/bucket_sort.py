@@ -30,9 +30,23 @@ def binary_search(A, v, compare, begin=0, end=None):
     return index
 
 
+def bucket_sort(A):
+    n = len(A)
+    m = min(A)
+    d = max(A) - m
+    B = [[] for _ in range(n+1)]
+    for i in range(n):
+        B[n*(A[i]-m)//d].append(A[i])
+    for i in range(n+1):
+        insertion_sort_binary_modification(B[i])
+    A.clear()
+    for i in range(n+1):
+        A.extend(B[i])
+
+
 def main():
-    A = [31, 41, 59, 26, 41, 58]
-    insertion_sort_binary_modification(A)
+    A = [17, 27, 3, 16, 13, 10, 1, 5, 7, 12, 4, 8, 9, 0]
+    bucket_sort(A)
     print(A)
 
 

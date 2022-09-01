@@ -10,7 +10,6 @@ def insertion_sort(A, reverse=False):
             A[i+1] = A[i]
             i = i - 1
         A[i+1] = key
-    return A
 
 
 def main():
