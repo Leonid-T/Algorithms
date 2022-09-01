@@ -11,6 +11,7 @@ def insertion_sort_binary_modification(A, reverse=False):
             A.insert(index, key)
     return A
 
+
 def binary_search(A, v, compare, begin=0, end=None):
     if end is None:
         end = len(A)-1
@@ -29,10 +30,12 @@ def binary_search(A, v, compare, begin=0, end=None):
             index = middle + 1
     return index
 
+
 def main():
     A = [31, 41, 59, 26, 41, 58]
     insertion_sort_binary_modification(A)
     print(A)
+
 
 if __name__ == '__main__':
     main()

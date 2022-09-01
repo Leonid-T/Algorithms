@@ -10,10 +10,12 @@ def selection_sort(A, reverse=False):
                 k = j
         A[i], A[k] = A[k], A[i]
 
+
 def main():
     A = [31, 41, 59, 26, 41, 58]
     selection_sort(A)
     print(A)
+
 
 if __name__ == '__main__':
     main()

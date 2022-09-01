@@ -12,11 +12,13 @@ def binary_search(A, v, begin=0, end=None):
             index = middle
     return index
 
+
 def main():
     A = [26, 31, 41, 41, 58, 59]
     v = 31
     index = binary_search(A, v)
     print(index)
+
 
 if __name__ == '__main__':
     main()

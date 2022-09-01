@@ -1,8 +1,10 @@
 def left(i):
     return 2*(i + 1) - 1
 
+
 def right(i):
     return 2*(i + 1)
+
 
 def heapify(A, i, heap_size, compare):
     l = left(i)
@@ -17,10 +19,12 @@ def heapify(A, i, heap_size, compare):
         A[i], A[largest] = A[largest], A[i]
         heapify(A, largest, heap_size, compare)
 
+
 def build_heap(A, compare):
     heap_size = len(A)
     for i in range(len(A)//2-1, -1, -1):
         heapify(A, i, heap_size, compare)
+
 
 def heap_sort(A, reverse=False):
     if reverse:
@@ -34,10 +38,12 @@ def heap_sort(A, reverse=False):
         heap_size -= 1
         heapify(A, 0, heap_size, compare)
 
+
 def main():
     A = [17, 27, 3, 16, 13, 10, 1, 5, 7, 12, 4, 8, 9, 0]
     heap_sort(A)
     print(A)
+
 
 if __name__ == '__main__':
     main()

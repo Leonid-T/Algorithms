@@ -1,7 +1,7 @@
 def find_maximum_subarray(A, low=0, high=None):
     if high is None:
         high = len(A)-1
-        
+
     if low == high:
         return low, high, A[low]
     else:
@@ -15,6 +15,7 @@ def find_maximum_subarray(A, low=0, high=None):
             return right_low, right_high, right_sum
         else:
             return cross_low, cross_high, cross_sum
+
 
 def find_max_crossing_subarray(A, low, mid, high):
     left_sum = A[mid]-1
@@ -33,10 +34,11 @@ def find_max_crossing_subarray(A, low, mid, high):
             max_right = i
     return max_left, max_right, left_sum + right_sum
 
+
 def find_maximum_subarray2(A, low=0, high=None):
     if high is None:
         high = len(A)
-    
+
     max_sum = A[0]-1
     summ = 0
     future_left = 0
@@ -50,12 +52,13 @@ def find_maximum_subarray2(A, low=0, high=None):
             summ = 0
             future_left = i + 1
     return left, right, max_sum
-        
+
 
 def main():
     A = [13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4, 7]
     print(find_maximum_subarray(A))
     print(find_maximum_subarray2(A))
+
 
 if __name__ == '__main__':
     main()

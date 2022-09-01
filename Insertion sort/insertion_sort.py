@@ -12,10 +12,12 @@ def insertion_sort(A, reverse=False):
         A[i+1] = key
     return A
 
+
 def main():
     A = [31, 41, 59, 26, 41, 58]
     insertion_sort(A)
     print(A)
+
 
 if __name__ == '__main__':
     main()

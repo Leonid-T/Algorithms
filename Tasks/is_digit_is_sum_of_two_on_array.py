@@ -7,10 +7,12 @@ def is_sum_of_two(x, A):
             return True
     return False
 
+
 def main():
     A = [3, 4, 8, 4, 45, 23, 5, 7, 11, 10]
     x = 17
     print(is_sum_of_two(x, A))
+
 
 if __name__ == '__main__':
     main()

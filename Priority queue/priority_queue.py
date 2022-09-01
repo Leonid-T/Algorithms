@@ -4,13 +4,13 @@ class Heap:
         self.heap_size = len(A)
         for i in range(self.heap_size//2-1, -1, -1):
             self._max_heapify(i)
-    
+
     def __str__(self):
         return str(self.heap)
-    
+
     def __iter__(self):
         return self.heap.__iter__()
-    
+
     def parent(self, i):
         return (i + 1) // 2 - 1
 
@@ -19,7 +19,7 @@ class Heap:
 
     def right(self, i):
         return 2*(i + 1)
-    
+
     def heap_maximum(self):
         return self.heap[0]
 
@@ -35,7 +35,7 @@ class Heap:
         if largest != i:
             self.heap[i], self.heap[largest] = self.heap[largest], self.heap[i]
             self._max_heapify(largest)
-    
+
     def heap_extract_max(self):
         if self.heap_size < 1:
             raise 'The queue is empty'
@@ -45,7 +45,7 @@ class Heap:
         self.heap.pop()
         self._max_heapify(0)
         return maximum
-    
+
     def _heap_increase_key(self, i, key):
         if key < self.heap[i]:
             raise 'The new key is smaller than the current one'
@@ -53,18 +53,18 @@ class Heap:
             self.heap[i] = self.heap[self.parent(i)]
             i = self.parent(i)
         self.heap[i] = key
-        
-    
+
     def max_heap_insert(self, key):
         self.heap_size += 1
         self.heap.append(key-1)
         self._heap_increase_key(self.heap_size-1, key)
-    
+
     def heap_delete(self, i):
         if 0 <= i < self.heap_size:
             self.heap.pop(i)
             self.heap_size -= 1
             self._max_heapify(i)
+
 
 def main():
     heap = Heap([17, 27, 3, 16, 13, 10, 1, 5, 7, 12, 4, 8, 9, 0])
@@ -75,6 +75,7 @@ def main():
     print(m, heap)
     heap.heap_delete(6)
     print(heap)
+
 
 if __name__ == '__main__':
     main()

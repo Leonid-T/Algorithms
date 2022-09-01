@@ -1,5 +1,6 @@
 from math import log2
 
+
 def strassen_multiplication(A, B):
     """
     Вступление к рекурсивному алгоритму произведения квадратных матриц A, B по
@@ -12,6 +13,7 @@ def strassen_multiplication(A, B):
                                       B, 0, n, 0, n)
     else:
         return None
+
 
 def square_matrix_multiply(A, i_left_A, i_right_A, j_left_A, j_right_A,
                            B, i_left_B, i_right_B, j_left_B, j_right_B):
@@ -31,21 +33,21 @@ def square_matrix_multiply(A, i_left_A, i_right_A, j_left_A, j_right_A,
         j_mid_B = (j_left_B + j_right_B) // 2
         S1 = matrix_operation(B, i_left_B,   i_mid_B,  j_mid_B, j_right_B,
                                B,  i_mid_B, i_right_B,  j_mid_B, j_right_B, '-')
-        S2 =  matrix_operation(A, i_left_A,   i_mid_A, j_left_A,   j_mid_A,
+        S2 = matrix_operation(A, i_left_A,   i_mid_A, j_left_A,   j_mid_A,
                                A, i_left_A,   i_mid_A,  j_mid_A, j_right_A, '+')
-        S3 =  matrix_operation(A,  i_mid_A, i_right_A, j_left_A,   j_mid_A,
+        S3 = matrix_operation(A,  i_mid_A, i_right_A, j_left_A,   j_mid_A,
                                A,  i_mid_A, i_right_A,  j_mid_A, j_right_A, '+')
-        S4 =  matrix_operation(B,  i_mid_B, i_right_B, j_left_B,   j_mid_B,
+        S4 = matrix_operation(B,  i_mid_B, i_right_B, j_left_B,   j_mid_B,
                                B, i_left_B,   i_mid_B, j_left_B,   j_mid_B, '-')
-        S5 =  matrix_operation(A, i_left_A,   i_mid_A, j_left_A,   j_mid_A,
+        S5 = matrix_operation(A, i_left_A,   i_mid_A, j_left_A,   j_mid_A,
                                A,  i_mid_A, i_right_A,  j_mid_A, j_right_A, '+')
-        S6 =  matrix_operation(B, i_left_B,   i_mid_B, j_left_B,   j_mid_B,
+        S6 = matrix_operation(B, i_left_B,   i_mid_B, j_left_B,   j_mid_B,
                                B,  i_mid_B, i_right_B,  j_mid_B, j_right_B, '+')
-        S7 =  matrix_operation(A, i_left_A,   i_mid_A,  j_mid_A, j_right_A,
+        S7 = matrix_operation(A, i_left_A,   i_mid_A,  j_mid_A, j_right_A,
                                A,  i_mid_A, i_right_A,  j_mid_A, j_right_A, '-')
-        S8 =  matrix_operation(B,  i_mid_B, i_right_B, j_left_B,   j_mid_B,
+        S8 = matrix_operation(B,  i_mid_B, i_right_B, j_left_B,   j_mid_B,
                                B,  i_mid_B, i_right_B,  j_mid_B, j_right_B, '+')
-        S9 =  matrix_operation(A, i_left_A,   i_mid_A, j_left_A,   j_mid_A,
+        S9 = matrix_operation(A, i_left_A,   i_mid_A, j_left_A,   j_mid_A,
                                A,  i_mid_A, i_right_A, j_left_A,   j_mid_A, '-')
         S10 = matrix_operation(B, i_left_B,   i_mid_B, j_left_B,   j_mid_B,
                                B, i_left_B,   i_mid_B,  j_mid_B, j_right_B, '+')
@@ -79,6 +81,7 @@ def square_matrix_multiply(A, i_left_A, i_right_A, j_left_A, j_right_A,
                 C[i][j] = P5[i-i_mid_C][j-j_mid_C] + P1[i-i_mid_C][j-j_mid_C] - P3[i-i_mid_C][j-j_mid_C] - P7[i-i_mid_C][j-j_mid_C]
     return C
 
+
 def matrix_operation(A, i_left_A, i_right_A, j_left_A, j_right_A,
                      B, i_left_B, i_right_B, j_left_B, j_right_B, operator):
     if operator == '+':
@@ -90,6 +93,7 @@ def matrix_operation(A, i_left_A, i_right_A, j_left_A, j_right_A,
                for j in range(n)]
            for i in range(n)]
 
+
 def ordinary_matrix_multiplication(A, B):
     n = len(A)
     C = [[0 for _ in range(n)] for _ in range(n)]
@@ -99,6 +103,7 @@ def ordinary_matrix_multiplication(A, B):
             for k in range(n):
                 C[i][j] += A[i][k] * B[k][j]
     return C
+
 
 def main():
     A = [[1, 3],

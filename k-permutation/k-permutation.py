@@ -1,5 +1,6 @@
 from random import randint
 
+
 def permutation(A, k):
     A = A.copy()
     n = len(A)
@@ -9,13 +10,13 @@ def permutation(A, k):
             A[i], A[m] = A[m], A[i]
         return A[:k]
 
+
 def main():
-    A = []
     N = 10
-    for i in range(N):
-       A.append(i+1)
+    A = [i+1 for i in range(N)]
     B = permutation(A, 5)
     print(B)
+
 
 if __name__ == '__main__':
     main()
