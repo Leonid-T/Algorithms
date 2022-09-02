@@ -30,13 +30,36 @@ def binary_search(A, v, compare, begin=0, end=None):
     return index
 
 
+def min_max(A):
+    n = len(A)
+    if n > 0:
+        if n % 2:
+            minimum, maximum = A[0], A[0]
+            start = 1
+        elif A[0] < A[1]:
+            minimum, maximum = A[0], A[1]
+            start = 2
+        else:
+            minimum, maximum = A[1], A[0]
+            start = 2
+        for i in range(start, n-1, 2):
+            if A[i] < A[i+1]:
+                i_min, i_max = i, i+1
+            else:
+                i_min, i_max = i+1, i
+            if A[i_min] < minimum:
+                minimum = A[i_min]
+            if A[i_max] > maximum:
+                maximum = A[i_max]
+        return minimum, maximum
+
+
 def bucket_sort(A):
     n = len(A)
-    m = min(A)
-    d = max(A) - m
+    min_, max_ = min_max(A)
     B = [[] for _ in range(n+1)]
     for i in range(n):
-        B[n*(A[i]-m)//d].append(A[i])
+        B[n*(A[i]-min_)//(max_-min_)].append(A[i])
     for i in range(n+1):
         insertion_sort_binary_modification(B[i])
     A.clear()
