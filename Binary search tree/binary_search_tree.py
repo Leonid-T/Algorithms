@@ -58,9 +58,11 @@ class BSTree:
         else:
             return self._tree_search(x.right, k)
 
+    @property
     def minimum(self):
         return self._minimum(self.root)
 
+    @property
     def maximum(self):
         return self._maximum(self.root)
 
@@ -95,7 +97,7 @@ class BSTree:
 
     def _predecessor(self, x):
         if x.left is not None:
-            return self._minimum(x.left)
+            return self._maximum(x.left)
         y = x.parent
         while y is not None and x == y.left:
             x = y
@@ -139,7 +141,7 @@ def main():
     print(tree)
     tree.insert(15)
     print(tree)
-    print('Min:', tree.minimum())
+    print('Min:', tree.minimum)
     tree.delete(6)
     print(tree)
 
