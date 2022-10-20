@@ -54,22 +54,13 @@ class Graph:
         self._weight_strategy.add_edge_symmetric(self, vertex1, vertex2)
 
     def add_edge(self, vertex1: Vertex, vertex2: Vertex, weight=None) -> None:
-        self._weight_strategy.add_edge(self, vertex1, vertex2)
+        self._weight_strategy.add_edge(self, vertex1, vertex2, weight)
 
     def transposition(self) -> Graph:
-        graphT = Graph()
-        ind = {}
-        for i in range(len(self.vertices)):
-            val = self.vertices[i].value
-            vertex = Vertex(val)
-            graphT.add_vertex(vertex)
-            ind[val] = i
-        for vertex in self.vertices:
-            for v in vertex.neighbours:
-                vertex1 = graphT.vertices[ind[v.value]]
-                vertex2 = graphT.vertices[ind[vertex.value]]
-                graphT.add_edge(vertex1, vertex2)
-        return graphT
+        return self._weight_strategy.transposition(self)
+
+    def delete_vertex(self, vertex: Vertex) -> None:
+        self._weight_strategy.delete_vertex(self, vertex)
 
 
 class WeightStrategy(ABC):
@@ -85,6 +76,14 @@ class WeightStrategy(ABC):
 
     @abstractmethod
     def add_edge(self, vertex1: Vertex, vertex2: Vertex, weight=None) -> None:
+        pass
+
+    @abstractmethod
+    def transposition(self) -> Graph:
+        pass
+
+    @abstractmethod
+    def delete_vertex(self, vertex: Vertex) -> None:
         pass
 
 
@@ -110,6 +109,30 @@ class Nonweight(WeightStrategy):
     def add_edge(self, vertex1: Vertex, vertex2: Vertex, weight=None) -> None:
         vertex1.add_neighbour(vertex2)
 
+    def transposition(self) -> Graph:
+        graphT = Graph()
+        ind = {}
+        for i in range(len(self.vertices)):
+            val = self.vertices[i].value
+            vertex = Vertex(val)
+            graphT.add_vertex(vertex)
+            ind[val] = i
+        for vertex in self.vertices:
+            for v in vertex.neighbours:
+                vertex1 = graphT.vertices[ind[v.value]]
+                vertex2 = graphT.vertices[ind[vertex.value]]
+                graphT.add_edge(vertex1, vertex2)
+        return graphT
+
+    def delete_vertex(self, vertex: Vertex) -> None:
+        if vertex in self.vertices:
+            i = self.vertices.index(vertex)
+            self.vertices.pop(i)
+            for v in self.vertices:
+                if vertex in v.neighbours:
+                    i = v.neighbours.index(vertex)
+                    v.neighbours.pop(i)
+
 
 class Weight(WeightStrategy):
     def add_all_edges(self, edges: List, symmetric: bool) -> None:
@@ -134,3 +157,28 @@ class Weight(WeightStrategy):
 
     def add_edge(self, vertex1: Vertex, vertex2: Vertex, weight: int) -> None:
         vertex1.add_neighbour((vertex2, weight))
+
+    def transposition(self) -> Graph:
+        graphT = Graph()
+        ind = {}
+        for i in range(len(self.vertices)):
+            val = self.vertices[i].value
+            vertex = Vertex(val)
+            graphT.add_vertex(vertex)
+            ind[val] = i
+        for vertex in self.vertices:
+            for v, weight in vertex.neighbours:
+                vertex1 = graphT.vertices[ind[v.value]]
+                vertex2 = graphT.vertices[ind[vertex.value]]
+                graphT.add_edge(vertex1, vertex2, weight)
+        return graphT
+
+    def delete_vertex(self, vertex: Vertex) -> None:
+        if vertex in self.vertices:
+            i = self.vertices.index(vertex)
+            self.vertices.pop(i)
+            for v in self.vertices:
+                neighbours = [ver for ver, weight in v.neighbours]
+                if vertex in neighbours:
+                    i = neighbours.index(vertex)
+                    v.neighbours.pop(i)
