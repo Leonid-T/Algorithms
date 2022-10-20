@@ -31,6 +31,9 @@ def floyd_warshall(graph: Graph) -> None:
 
 
 def get_matrix(graph: Graph) -> tuple:
+    '''
+    Matrix representation of graph
+    '''
     n = len(graph.vertices)
     accord = {graph.vertices[i]: i for i in range(n)}
     W = [[float('inf') for j in range(n)] for i in range(n)]

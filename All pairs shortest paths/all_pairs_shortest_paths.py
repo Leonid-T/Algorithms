@@ -76,7 +76,7 @@ def path(i: int, j: int, P: list, s: str, graph: Graph) -> None:
     if i == j:
         s += f'{graph.vertices[i]} -> '
     elif P[i][j] is None:
-        s = 'No way from {graph.vertices[i]} to {graph.vertices[j]}    '
+        s = f'No way from {graph.vertices[i]} to {graph.vertices[j]}    '
     else:
         s = path(i, P[i][j], P, s, graph)
         s += f'{graph.vertices[j]} -> '
