@@ -59,6 +59,9 @@ class Graph:
     def transposition(self) -> Graph:
         return self._weight_strategy.transposition(self)
 
+    def copy(self) -> Graph:
+        return self._weight_strategy.copy()
+
     def delete_vertex(self, vertex: Vertex) -> None:
         self._weight_strategy.delete_vertex(self, vertex)
 
@@ -80,6 +83,10 @@ class WeightStrategy(ABC):
 
     @abstractmethod
     def transposition(self) -> Graph:
+        pass
+
+    @abstractmethod
+    def copy(self) -> Graph:
         pass
 
     @abstractmethod
@@ -124,6 +131,21 @@ class Nonweight(WeightStrategy):
                 graphT.add_edge(vertex1, vertex2)
         return graphT
 
+    def copy(self) -> Graph:
+        graphCopy = Graph()
+        ind = {}
+        for i in range(len(self.vertices)):
+            val = self.vertices[i].value
+            vertex = Vertex(val)
+            graphCopy.add_vertex(vertex)
+            ind[val] = i
+        for vertex in self.vertices:
+            for v in vertex.neighbours:
+                vertex1 = graphCopy.vertices[ind[vertex.value]]
+                vertex2 = graphCopy.vertices[ind[v.value]]
+                graphCopy.add_edge(vertex1, vertex2)
+        return graphCopy
+
     def delete_vertex(self, vertex: Vertex) -> None:
         if vertex in self.vertices:
             i = self.vertices.index(vertex)
@@ -159,7 +181,7 @@ class Weight(WeightStrategy):
         vertex1.add_neighbour((vertex2, weight))
 
     def transposition(self) -> Graph:
-        graphT = Graph()
+        graphT = Graph(weight=True)
         ind = {}
         for i in range(len(self.vertices)):
             val = self.vertices[i].value
@@ -172,6 +194,21 @@ class Weight(WeightStrategy):
                 vertex2 = graphT.vertices[ind[vertex.value]]
                 graphT.add_edge(vertex1, vertex2, weight)
         return graphT
+
+    def copy(self) -> Graph:
+        graphCopy = Graph(weight=True)
+        ind = {}
+        for i in range(len(self.vertices)):
+            val = self.vertices[i].value
+            vertex = Vertex(val)
+            graphCopy.add_vertex(vertex)
+            ind[val] = i
+        for vertex in self.vertices:
+            for v, weight in vertex.neighbours:
+                vertex1 = graphCopy.vertices[ind[vertex.value]]
+                vertex2 = graphCopy.vertices[ind[v.value]]
+                graphCopy.add_edge(vertex1, vertex2, weight)
+        return graphCopy
 
     def delete_vertex(self, vertex: Vertex) -> None:
         if vertex in self.vertices:
